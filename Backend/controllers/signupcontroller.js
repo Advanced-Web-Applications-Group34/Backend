@@ -1,6 +1,6 @@
 require("dotenv").config()
 const mysql = require("mysql")
-const database = require("../database");
+//const database = require("../database");
 const db = require("../database");
 
 const bcrypt = require("bcrypt")
