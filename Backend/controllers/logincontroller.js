@@ -1,10 +1,9 @@
 require("dotenv").config()
 const mysql = require("mysql")
-//const database = require("../database");
+const database = require("../database");
 const db = require("../database");
 const generateAccessToken = require('../routes/generateAccessToken');
 const bcrypt = require("bcrypt")
-
 
 //LOGIN (AUTHENTICATE USER, and return accessToken
 const login_index = (req, res) => {

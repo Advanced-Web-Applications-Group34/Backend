@@ -1,6 +1,6 @@
 require("dotenv").config()
 const mysql = require("mysql")
-//const database = require("../database");
+
 const db = require("../database");
 
 const bcrypt = require("bcrypt")
@@ -18,12 +18,12 @@ const signup_index = async (req, res) => {
      const sqlSearch = "SELECT * FROM user_table WHERE email = ?"
      const search_query = mysql.format(sqlSearch,[email])
     
-     const sqlInsert = "INSERT INTO user_table VALUES (0,?,?)"
+     const sqlInsert = "INSERT INTO user_table (userId, email, password) VALUES (0,?,?)"
      const insert_query = mysql.format(sqlInsert,[email, hashedPassword])
      // ? will be replaced by values
      // ?? will be replaced by string
     
-     await connection.query (search_query, async (err, result) => {
+      await connection.query (search_query, async (err, result) => {
     
     
       if (err) throw (err)
@@ -37,8 +37,10 @@ const signup_index = async (req, res) => {
       } 
     
       else {
-       await connection.query (insert_query, (err, result)=> {
+        await connection.query (insert_query, (err, result)=> {
+
        connection.release()
+       
        if (err) throw (err)
        console.log ("--------> Created a new Account")
        console.log(result.insertId)
