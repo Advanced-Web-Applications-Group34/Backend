@@ -1,3 +1,5 @@
+// Obsolete for current code. left for documentation purposes
+
 import generateAccessToken from "./generateAccessToken"
 //import the generateAccessToken function
 
