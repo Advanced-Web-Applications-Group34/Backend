@@ -1,3 +1,6 @@
+
+//DELETE LATER IF NOT NEEDED
+
 /*
 require("dotenv").config()
 //const queryDatabase = require('./models/user_table');
@@ -44,7 +47,7 @@ var db = mysql.createConnection({
   database: DB_DATABASE,
   port: DB_PORT  
 });
-*/
+
 
 //CREATE table user_table
   db.getConnection(function(err) {
@@ -70,7 +73,7 @@ var db = mysql.createConnection({
 
  module.exports= db;
  
-/*
+
   con.connect(function(err) {
    if (err) throw err;
    var sql = "DROP TABLE IF EXISTS restaurant_table;', function (err, results, fields)"; 
