@@ -1,8 +1,6 @@
 require("dotenv").config()
 const mysql = require("mysql")
-
-const db = require("../database");
-
+const db = require("../database.js");
 const bcrypt = require("bcrypt")
 
 const signup_index = async (req, res) => {
@@ -49,7 +47,7 @@ const signup_index = async (req, res) => {
      }
     }) //end of connection.query()
     
-    }) //end of db.getConnection()
+   }) //end of db.getConnection()
     
 }
 

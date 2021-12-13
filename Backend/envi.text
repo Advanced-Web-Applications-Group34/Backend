@@ -1,0 +1,6 @@
+DB_HOST = awagroup34db.mysql.database.azure.com
+DB_USER = awagroup34db@awagroup34db
+DB_PASSWORD = GaRwOaUp34!23
+DB_DATABASE = userdb
+DB_PORT = 3306
+ssl: false
