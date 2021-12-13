@@ -1,3 +1,5 @@
+// Obsolete for current code. left for documentation purposes
+
 // $ npm i jsonwebtoken
 // ^ this should fetch the needed database to generate tokens using this code  + tokenAsignment
 
