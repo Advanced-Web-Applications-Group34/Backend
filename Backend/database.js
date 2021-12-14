@@ -8,6 +8,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD
 const DB_DATABASE = process.env.DB_DATABASE
 const DB_PORT = process.env.DB_PORT
 
+/*
 var config =
 {   
     connectionLimit: 100,
@@ -41,7 +42,29 @@ conn.connect(
            cart_tabledb();
     }
 });
+*/
 
+
+const conn = mysql.createPool({
+    connectionLimit: 100,
+    host: DB_HOST,      //This is your localhost IP
+    user: DB_USER,         // "AwaUser" created
+    password: DB_PASSWORD,  // password for the new user
+    database: DB_DATABASE,      // Database name
+    port: DB_PORT,               // port name, "3306" by default
+    connectionLimit : 1000,
+    connectTimeout  : 60 * 60 * 1000,
+    acquireTimeout  : 60 * 60 * 1000,
+    timeout         : 60 * 60 * 1000,          
+ })
+ conn.getConnection( (err, connection)=> {
+    if (err) throw (err)
+    console.log ("DB connected successful: " + connection.threadId)
+ })
+ 
+
+/*
+//Do these if tables are deleted
 function user_tabledb(){
     conn.query('DROP TABLE IF EXISTS user_table;', function (err, results, fields) { 
         if (err) throw err; 
@@ -73,9 +96,8 @@ function user_tabledb(){
     /*conn.end(function (err) { 
     if (err) throw err;
     else  console.log('Done.') 
-    });*/
+    });
 };
-
 
 function restaurant_tabledb(){
     conn.query('DROP TABLE IF EXISTS restaurant_table;', function (err, results, fields) { 
@@ -108,7 +130,7 @@ function restaurant_tabledb(){
    /* conn.end(function (err) { 
     if (err) throw err;
     else  console.log('Done.') 
-    });*/
+    });
 };
 
 
@@ -143,7 +165,7 @@ function orders_tabledb(){
     /*conn.end(function (err) { 
     if (err) throw err;
     else  console.log('Done.') 
-    });*/
+    });
 };
 
 function fooditemdb(){
@@ -177,7 +199,7 @@ function fooditemdb(){
     /*conn.end(function (err) { 
     if (err) throw err;
     else  console.log('Done.') 
-    });*/
+    });
 };
 
 function cart_tabledb(){
@@ -208,9 +230,10 @@ function cart_tabledb(){
         }
         console.log('Done.');
     })
-    conn.end(function (err) { 
+    /*conn.end(function (err) { 
     if (err) throw err;
     else  console.log('Done.') 
-    });
- 
+    }); 
 }
+*/
+module.exports =  conn;

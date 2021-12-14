@@ -1,6 +1,6 @@
 require("dotenv").config()
 const mysql = require("mysql")
-const db = require("../database.js");
+const conn = require("../database.js");
 const generateAccessToken = require('../routes/generateAccessToken');
 const bcrypt = require("bcrypt")
 
@@ -10,7 +10,7 @@ const login_index = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    db.getConnection ( async (err, connection)=> {
+    conn.getConnection ( async (err, connection)=> {
 
      if (err) throw (err)
      const sqlSearch = "Select * from user_table where email = ?"

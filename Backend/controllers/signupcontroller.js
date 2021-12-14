@@ -1,14 +1,17 @@
 require("dotenv").config()
 const mysql = require("mysql")
-const db = require("../database.js");
+const config = require("../database.js");
 const bcrypt = require("bcrypt")
+const conn = require("../database.js");
+
+
 
 const signup_index = async (req, res) => {
 
     const email = req.body.email;
     const hashedPassword = await bcrypt.hash(req.body.password,10); //Hash & Salt
     
-    db.getConnection( async (err, connection) => {
+   conn.getConnection( async (err, connection) => {
     
      if (err) throw (err)
     
@@ -44,6 +47,7 @@ const signup_index = async (req, res) => {
        console.log(result.insertId)
        res.sendStatus(201)
       })
+      
      }
     }) //end of connection.query()
     
