@@ -71,7 +71,7 @@ function user_tabledb(){
         console.log('Dropped user_table table if existed.');
         }) 
     
-        conn.query('CREATE TABLE user_table ( userid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,email VARCHAR(320) NOT NULL,password VARCHAR(100) NOT NULL, fname VARCHAR(50) NULL,lname VARCHAR(50) NULL, address VARCHAR(15) NULL,postalcode VARCHAR(10) NULL,phoneNumber VARCHAR(15) NULL, isManager tinyint(1) NOT NULL);',
+        conn.query('CREATE TABLE user_table ( userid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,email VARCHAR(320) NOT NULL,password VARCHAR(100) NOT NULL, fname VARCHAR(50) NOT NULL,lname VARCHAR(50)  NOT NULL, address VARCHAR(15)  NOT NULL,postalcode VARCHAR(10)  NOT NULL,phoneNumber VARCHAR(15)  NOT NULL, isManager tinyint(1) NOT NULL);',
         function (err, results, fields) {
             if (err) throw err;
           console.log('Created user_table table.'); 
@@ -98,14 +98,16 @@ function user_tabledb(){
     else  console.log('Done.') 
     });
 };
-
+//OLD
+//restaurant_table changed to fit frontend restaurant form
+/*
 function restaurant_tabledb(){
     conn.query('DROP TABLE IF EXISTS restaurant_table;', function (err, results, fields) { 
         if (err) throw err; 
         console.log('Dropped restaurant_table table if existed.');
         }) 
     
-        conn.query('CREATE TABLE restaurant_table ( resmanid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, resname VARCHAR(50) NOT NULL, opHours VARCHAR(45) NOT NULL, image BLOB NULL,resType VARCHAR(45) NULL, priceLevel VARCHAR(4) NOT NULL,managerid int(11) NOT NULL);',
+        conn.query('CREATE TABLE restaurant_table ( resmanid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, resname VARCHAR(50) NOT NULL, opHours VARCHAR(45) NOT NULL, image BLOB  NOT NULL,resType VARCHAR(45)  NOT NULL, priceLevel VARCHAR(4) NOT NULL,managerid int(11) NOT NULL);',
         function (err, results, fields) {
             if (err) throw err;
           console.log('Created restaurant_table table.'); 
@@ -133,6 +135,39 @@ function restaurant_tabledb(){
     });
 };
 
+function restaurant_tabledb(){
+    conn.query('DROP TABLE IF EXISTS restaurant_table;', function (err, results, fields) { 
+        if (err) throw err; 
+        console.log('Dropped restaurant_table table if existed.');
+        }) 
+    
+        conn.query('CREATE TABLE restaurant_table ( resmanid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, resname VARCHAR(50) NOT NULL, address VARCHAR(15) NOT NULL, email VARCHAR(320) NOT NULL, password VARCHAR(100) NOT NULL,fromOpHours VARCHAR(45) NOT NULL, ToOpHours VARCHAR(45) NOT NULL,resType VARCHAR(45)  NOT NULL,priceLevel VARCHAR(4) NOT NULL, image BLOB  NOT NULL, managerid int(11) NOT NULL);',
+        function (err, results, fields) {
+            if (err) throw err;
+          console.log('Created restaurant_table table.'); 
+        })
+
+    conn.query('INSERT INTO restaurant_table (resname,address,email,password,fromOpHours,ToOpHours,resType,priceLevel) VALUES (?, ?, ?, ?,?,?,?,?);', ['awesomerestaurantName','foodavenue','cool@email.com','password1#','16.18','17.18','Buffet','$$'],
+    function (err, results, fields) {
+        if (err) throw err;
+        else console.log('Inserted ' + results.affectedRows + ' row(s).'); 
+    })
+    
+
+    conn.query('SELECT * FROM restaurant_table', 
+    function (err, results, fields) {
+        if (err) throw err;
+        else console.log('Selected ' + results.length + ' row(s).');
+        for (i = 0; i < results.length; i++) {
+            console.log('Row: ' + JSON.stringify(results[i]));
+        }
+        console.log('Done.');
+    })
+   /* conn.end(function (err) { 
+    if (err) throw err;
+    else  console.log('Done.') 
+    });
+};
 
 function orders_tabledb(){
     conn.query('DROP TABLE IF EXISTS orders_table;', function (err, results, fields) { 
@@ -174,7 +209,7 @@ function fooditemdb(){
         console.log('Dropped fooditem table if existed.');
         }) 
     
-        conn.query('CREATE TABLE fooditem ( foodid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL, description VARCHAR(200) NOT NULL, price DOUBLE NOT NULL, foodimage BLOB NULL, category VARCHAR(100), restaurantid INT(11) NOT NULL);',
+        conn.query('CREATE TABLE fooditem ( foodid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL, description VARCHAR(200) NOT NULL, price DOUBLE NOT NULL, foodimage BLOB  NOT NULL, category VARCHAR(100)  NOT NULL, restaurantid INT(11) NOT NULL);',
         function (err, results, fields) {
             if (err) throw err;
           console.log('Created fooditem table.'); 

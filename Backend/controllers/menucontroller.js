@@ -1,32 +1,27 @@
 require("dotenv").config()
 const mysql = require("mysql")
 const config = require("../database.js");
-const bcrypt = require("bcrypt")
 const conn = require("../database.js");
 
 
 
-const signup_index = async (req, res) => {
+const menu_index = async (req, res) => {
 
-    const email = req.body.email;
-    const hashedPassword = await bcrypt.hash(req.body.password,10); //Hash & Salt
-    const fname = req.body.fname;
-    const lname= req.body.lname;
-    const address = req.body.address;
-    const postalcode = req.body.postalcode;
-    const phonenumber = req.body.phonenumber;
-   const isManager = req.body.isManager;
+    const name = req.body.name;
+    const description = req.body.description;
+    const price = req.body.price;
+    const foodimage = req.body.foodimage;
+
 
    conn.getConnection( async (err, connection) => {
     
      if (err) throw (err)
+       
+     const sqlSearch = "SELECT * FROM fooditem WHERE name = ?"
+     const search_query = mysql.format(sqlSearch,[name])
     
-    
-     const sqlSearch = "SELECT * FROM user_table WHERE email = ?"
-     const search_query = mysql.format(sqlSearch,[email])
-    
-     const sqlInsert = "INSERT INTO user_table (userId, email, password,fname,lname,address,postalcode,phonenumber,isManager) VALUES (0,?,?,?,?,?,?,?,0)"
-     const insert_query = mysql.format(sqlInsert,[email, hashedPassword,fname,lname,address,postalcode,phonenumber,isManager])
+     const sqlInsert = "INSERT INTO fooditem (foodid,name,description,price,foodimage) VALUES (0, ?, ?, ?,?)"
+     const insert_query = mysql.format(sqlInsert,[name,description,price,foodimage])
      // ? will be replaced by values
      // ?? will be replaced by string
     
@@ -49,7 +44,7 @@ const signup_index = async (req, res) => {
        connection.release()
        
        if (err) throw (err)
-       console.log ("--------> Created a new Account")
+       console.log ("--------> Created new menu")
        console.log(result.insertId)
        res.sendStatus(201)
       })
@@ -60,8 +55,8 @@ const signup_index = async (req, res) => {
    }) //end of db.getConnection()
     
 }
-const signup_index2 = async (req, res) => {
-conn.query('SELECT * FROM user_table', 
+const menu_index2 = async (req, res) => {
+conn.query('SELECT * FROM fooditem', 
     function (err, results, fields) {
         if (err) throw err;
         else console.log('Selected ' + results.length + ' row(s).');
@@ -72,6 +67,6 @@ conn.query('SELECT * FROM user_table',
     })
   }
 module.exports = {
-    signup_index,
-    signup_index2
+    menu_index,
+    menu_index2
 }

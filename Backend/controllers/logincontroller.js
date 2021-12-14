@@ -1,7 +1,7 @@
 require("dotenv").config()
 const mysql = require("mysql")
 const conn = require("../database.js");
-const generateAccessToken = require('../routes/generateAccessToken');
+//const generateAccessToken = require('../routes/generateAccessToken');
 const bcrypt = require("bcrypt")
 
 //LOGIN (AUTHENTICATE USER, and return accessToken
@@ -32,10 +32,6 @@ const login_index = (req, res) => {
          
         if (await bcrypt.compare(password, hashedPassword)) {
         console.log("---------> Login Successful")
-        console.log("---------> Generating accessToken")
-        const token = generateAccessToken({email: email})  
-        console.log(token) 
-        res.json({accessToken: token})
         res.send(`${email} is logged in!`)
         } 
         else {

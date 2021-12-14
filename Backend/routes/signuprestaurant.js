@@ -1,5 +1,4 @@
 const express = require("express")
-const signupcontroller = require("../controllers/signupcontroller")
 const signupcontrollerRestaurant = require("../controllers/signupcontrollerRestaurant")
 
 
@@ -8,8 +7,8 @@ router.use(express.json())
 //middleware to read req.body.<params>
 
 //CREATE USER
-router.post("/", signupcontroller.signup_index); //end of app.post()
-router.get("/", signupcontroller.signup_index2);
+router.post("/",signupcontrollerRestaurant.signup_indexRestaurant);
+router.get("/",signupcontrollerRestaurant.signup_indexRestaurant2);
 
 
 module.exports = router;
